@@ -40,6 +40,15 @@ const handleMenuSelection = ({ character, selection }) => {
     }
 }
 
+const handleActionResult = (character) => {
+    if (character) {
+        return state.write(character);
+    } else {
+        // you have died... sorry...
+        return state.del();
+    }
+}
+
 const handleError = (err) => {
     // File not found or not parseable
     if (err.code === 'ENOENT' || err instanceof SyntaxError) {
@@ -85,12 +94,17 @@ const createCharacter = () => {
     })
 }
 
+const initializeCharacter = (data) => {
+    return new Character(data.name, data.profession.profession, data.gold, data.profession.health);
+}
+
 
 
 console.log('RPG Game') // Make this more exciting...
 
 state.read()
+    .then(initializeCharacter)
     .then(menu)
     .then(handleMenuSelection)
-    .then(state.write)
+    .then(handleActionResult)
     .catch(handleError);

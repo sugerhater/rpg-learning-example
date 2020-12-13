@@ -6,7 +6,30 @@
 // fighting is health - attack, repeat until player or enemy health <= 0
 // award gold based on enemy strength
 const attack = (character) => {
-    console.log("Attack not implemented.");
+    // Naive enemy implementation...
+    const damage = Math.floor(Math.random() * 10 + 1); // 1 - 10 damage
+    const health = Math.floor(Math.random() * 10 + 21); // 10 - 30 health
+    const gold = health + damage;
+    
+    const enemy = { damage, health, gold };
+
+    while (character.profession.health > 0 && enemy.health > 0) {
+        const prevEnemyHealth = enemy.health;
+        character.doDamage(enemy);
+        console.log(`You hit the enemy for ${prevEnemyHealth - enemy.health} damage.`);
+        character.receiveDamage(enemy.damage);
+        console.log(`The enemy hits you for ${enemy.damage} damage.`)
+        console.log(`You have ${character.profession.health} hitpoints remaining.`);
+    }
+
+    if (character.profession.health <= 0) {
+        console.log("You have died.");
+        return null;
+    } else {
+        console.log(`You have defeated the enemy and received ${gold} gold!`)
+        character.gold += enemy.gold;
+        console.log(`You now have ${character.profession.health} health and ${character.gold} gold.`);
+    }
 
     return character;
 }
@@ -17,7 +40,7 @@ const attack = (character) => {
  * Rest sub-routine
  */
 const rest = (character) => {
-    character.gold -= 10;
+    character.gold -= 50;
     character.profession.health += 25;
 
     console.log("You have gained 25 health for 10 gold.");
@@ -36,7 +59,7 @@ const printStats = (character) => {
         for (var key in obj) {
             if (typeof obj[key] === 'object') {
                 recursivePrint(obj[key])
-            } else {
+            } else if (typeof obj[key] !== 'function') {
                 console.log(`${key}: ${obj[key]}`);
             }
         }

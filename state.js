@@ -19,7 +19,11 @@ const read = (callback) => fs.readFile("save.json", (err, state) => {
 // Write the stringified state object to the save file.
 const write = (state, callback) => fs.writeFile("save.json", JSON.stringify(state, null, 2), callback);
 
+// Delete the save file.
+const del = (callback) => fs.unlink("save.json", callback);
+
 module.exports = {
     read: util.promisify(read),
-    write: util.promisify(write)
+    write: util.promisify(write),
+    del: util.promisify(del)
 };

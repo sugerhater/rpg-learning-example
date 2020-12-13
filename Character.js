@@ -1,25 +1,29 @@
-function Character(name, profession) {
+function Character(name, profession, gold, health) {
     this.name = name;
-    this.gold = 100;
+    this.gold = gold || 100;
 
     switch (profession) {
         case 'Warrior':
-            this.profession = new WarriorBehavior();
+            this.profession = new WarriorBehavior(health);
             break;
         case 'Thief':
-            this.profession = new ThiefBehavior();
+            this.profession = new ThiefBehavior(health);
             break;
         case 'Mage':
-            this.profession = new MageBehavior();
+            this.profession = new MageBehavior(health);
             break;
         default:
             throw new Error(`${profession} is not an implemented class`);
     }
 }
 
-Character.prototype.attack = function(enemy) {
-    // Delegate the attack method to it's specialized profession attack
-    this.profession.attack(enemy)
+Character.prototype.doDamage = function(enemy) {
+    // Delegate the doDamage method to it's specialized profession doDamage
+    this.profession.doDamage(enemy)
+}
+
+Character.prototype.receiveDamage = function(amount) {
+    this.profession.health -= amount;
 }
 
 
@@ -27,13 +31,13 @@ Character.prototype.attack = function(enemy) {
  * Warrior
  */
 
-function WarriorBehavior() {
-    this.health = 100;
+function WarriorBehavior(health) {
+    this.health = health || 100;
     this.attack = 10;
     this.profession = "Warrior"
 }
 
-WarriorBehavior.prototype.attack = function(enemy) {
+WarriorBehavior.prototype.doDamage = function(enemy) {
     enemy.health -= this.attack;
 }
 
@@ -42,15 +46,15 @@ WarriorBehavior.prototype.attack = function(enemy) {
  * Thief
  */
 
-function ThiefBehavior() {
-    this.health = 75;
+function ThiefBehavior(health) {
+    this.health = health || 75;
     this.attack = 10;
     this.criticalChance = 0.15
     this.criticalModifier = 3;
     this.profession = "Thief";
 }
 
-ThiefBehavior.prototype.attack = function(enemy) {
+ThiefBehavior.prototype.doDamage = function(enemy) {
     const damage = Math.random() <= this.criticalChance
         ? this.attack * this.criticalModifier
         : this.attack;
@@ -62,13 +66,13 @@ ThiefBehavior.prototype.attack = function(enemy) {
  * Mage
  */
 
-function MageBehavior() {
-    this.health = 50;
+function MageBehavior(health) {
+    this.health = health || 50;
     this.attack = 15;
     this.profession = "Mage";
 }
 
-MageBehavior.prototype.attack = function(enemy) {
+MageBehavior.prototype.doDamage = function(enemy) {
     enemy.health -= this.attack;
 }
 
