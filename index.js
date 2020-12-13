@@ -5,6 +5,7 @@
  */
 
 const inquirer = require("inquirer");
+const Character = require("./Character");
 const state = require("./state");
 
 const menu = (character) => {
@@ -64,9 +65,9 @@ const createCharacter = () => {
             message: 'What is your profession?',
             choices: ['Warrior', 'Thief', 'Mage']
         }
-    ]).then(answers => {
+    ]).then(({ name, profession }) => {
         // Create the character object
-        const character = { name: answers.name, profession: answers.profession };
+        const character = new Character(name, profession);
 
         return state.write(character)
     }).then(() => {
@@ -85,32 +86,3 @@ state.read()
     .then(handleMenuSelection)
     .then(state.write)
     .catch(handleError);
-
-
-
-
-
-
-
-/**
- * Fight an enemy sub-routine
- */
-
-// randomly select an enemy type
-// fighting is health - attack, repeat until player or enemy health <= 0
-// award gold based on enemy strength
-
-
-
-/**
- * Rest sub-routine
- */
-
-// subtract gold, give health
-
-
-/**
- * View character stats sub-routine
- */
-
-// Pretty print save.json
