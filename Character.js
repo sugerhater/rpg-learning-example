@@ -30,7 +30,7 @@ Character.prototype.attack = function(enemy) {
 function WarriorBehavior() {
     this.health = 100;
     this.attack = 10;
-    this.name = "Warrior"
+    this.profession = "Warrior"
 }
 
 WarriorBehavior.prototype.attack = function(enemy) {
@@ -47,7 +47,7 @@ function ThiefBehavior() {
     this.attack = 10;
     this.criticalChance = 0.15
     this.criticalModifier = 3;
-    this.name = "Thief";
+    this.profession = "Thief";
 }
 
 ThiefBehavior.prototype.attack = function(enemy) {
@@ -65,7 +65,7 @@ ThiefBehavior.prototype.attack = function(enemy) {
 function MageBehavior() {
     this.health = 50;
     this.attack = 15;
-    this.name = "Mage";
+    this.profession = "Mage";
 }
 
 MageBehavior.prototype.attack = function(enemy) {

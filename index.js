@@ -7,6 +7,7 @@
 const inquirer = require("inquirer");
 const Character = require("./Character");
 const state = require("./state");
+const { attack, rest, printStats } = require("./actions");
 
 const menu = (character) => {
         // if character is found, welcome them back by name
@@ -27,8 +28,11 @@ const menu = (character) => {
 const handleMenuSelection = ({ character, selection }) => {
     switch (selection) {
         case 'Fight an enemy':
+            return attack(character);
         case 'Rest':
+            return rest(character);
         case 'Display stats':
+            return printStats(character);
         default:
             console.log(character, selection)
             // ... after some undefined outcome return the updated character
@@ -37,8 +41,12 @@ const handleMenuSelection = ({ character, selection }) => {
 }
 
 const handleError = (err) => {
-    // File not found, or not parsable
-    return createCharacter();
+    // File not found or not parseable
+    if (err.code === 'ENOENT' || err instanceof SyntaxError) {
+        return createCharacter();
+    }
+    // All other errors,
+    throw err;
 }
 
 /**
