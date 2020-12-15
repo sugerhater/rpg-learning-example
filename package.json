@@ -1,7 +1,7 @@
 {
   "name": "rpg-learning-example",
   "version": "1.0.0",
-  "description": "",
+  "description": "A beginner friendly command line RPG game that serves as an introduction to Constructor functions, prototypes, CommonJS modules, native Node.js modules, promises, error-first style callbacks, object destructuring, arrow function expressions, ternary operators, and third-party npm modules.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,9 +10,9 @@
     "type": "git",
     "url": "git+https://github.com/skillsreactor/rpg-learning-example.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": ["beginner", "learning", "rpg", "cli"],
+  "author": "SkillsReactor LLC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/skillsreactor/rpg-learning-example/issues"
   },

@@ -34,7 +34,7 @@ Character.prototype.receiveDamage = function(amount) {
 function WarriorBehavior(health) {
     this.health = health || 100;
     this.attack = 10;
-    this.profession = "Warrior"
+    this.profession = "Warrior";
 }
 
 WarriorBehavior.prototype.doDamage = function(enemy) {
