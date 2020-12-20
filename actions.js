@@ -44,7 +44,7 @@ const rest = (character) => {
     character.gold -= 50;
     character.profession.health += 25;
 
-    console.log("You have gained 25 health for 10 gold.");
+    console.log(chalk.yellow ("You have gained 25 health for 10 gold."));
     console.log(`You now have ${character.profession.health} health and ${character.gold} gold.`);
 
     return character;
