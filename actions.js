@@ -24,7 +24,10 @@ const attack = (character) => {
     }
 
     if (character.profession.health <= 0) {
-        console.log(chalk.inverse("You have died. :-X "));
+main
+        console.log(chalk.inverse("You have died. :-X Your final stats were..."));
+        printStats(character);
+main
         return null;
     } else {
         console.log(`You have defeated the enemy and received ${gold} gold!`)
