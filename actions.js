@@ -23,7 +23,8 @@ const attack = (character) => {
     }
 
     if (character.profession.health <= 0) {
-        console.log("You have died.");
+        console.log("You have died. Your final stats were...");
+        printStats(character);
         return null;
     } else {
         console.log(`You have defeated the enemy and received ${gold} gold!`)
