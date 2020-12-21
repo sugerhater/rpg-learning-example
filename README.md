@@ -44,15 +44,9 @@ node index.js
 
 ## Media
 
-### Main Menu
+### Gameplay
 
-![Main menu](media/main-menu.png)
-
-### Fight Enemies
-![Fight enemies](media/fight-enemy.png)
-
-### Review Stats
-![Review Stats](media/character-stats.png)
+![Main menu](media/gameplay.gif)
 
 ## License
 
