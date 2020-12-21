@@ -10,7 +10,12 @@
     "type": "git",
     "url": "git+https://github.com/skillsreactor/rpg-learning-example.git"
   },
-  "keywords": ["beginner", "learning", "rpg", "cli"],
+  "keywords": [
+    "beginner",
+    "learning",
+    "rpg",
+    "cli"
+  ],
   "author": "SkillsReactor LLC",
   "license": "MIT",
   "bugs": {
@@ -18,6 +23,7 @@
   },
   "homepage": "https://github.com/skillsreactor/rpg-learning-example#readme",
   "dependencies": {
+    "chalk": "^4.1.0",
     "inquirer": "^7.3.3"
   }
 }
