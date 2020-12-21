@@ -23,7 +23,7 @@ class Game extends events.EventEmitter {
     }
 
     start() {
-        this.emit(EventTypes.MESSAGE, { key: 'game.name' }); // Make this more exciting...
+        this.emit(EventTypes.MESSAGE, { key: 'game.name' });
 
         if (!this.state) {
             return this.createCharacter()
@@ -37,7 +37,11 @@ class Game extends events.EventEmitter {
             {
                 key: 'main',
                 type: 'list',
-                choices: [ActionTypes.FIGHT_ENEMY, ActionTypes.REST, ActionTypes.VIEW_CHARACTER]
+                choices: [
+                    ActionTypes.FIGHT_ENEMY,
+                    ActionTypes.REST,
+                    ActionTypes.VIEW_CHARACTER
+                ]
             }
         ]);
 
@@ -72,19 +76,27 @@ class Game extends events.EventEmitter {
 
         while (state.character.profession.health > 0 && enemy.health > 0) {
             const prevEnemyHealth = enemy.health;
+            
             state.character.doDamage(enemy);
             this.emit(EventTypes.MESSAGE, {
                 key: 'combat.damage.dealt',
                 meta: { amount: prevEnemyHealth - enemy.health },
                 sentiment: SentimentTypes.BRUTAL
             });
+            
             state.character.receiveDamage(enemy.damage);
             this.emit(EventTypes.MESSAGE, {
                 key: 'combat.damage.receive',
                 meta: { amount: enemy.damage },
                 sentiment: SentimentTypes.PAIN
             });
-            this.emit(EventTypes.MESSAGE, { key: `combat.hitpoints`, meta: { amount: state.character.profession.health } });
+
+            this.emit(EventTypes.MESSAGE, {
+                key: `combat.hitpoints`,
+                meta: {
+                    amount: state.character.profession.health
+                }
+            });
         }
 
         if (state.character.profession.health <= 0) {
@@ -92,10 +104,25 @@ class Game extends events.EventEmitter {
             return this.emit(EventTypes.CHARACTER_DEATH, state.character)
         } else {
             // We won!
-            this.emit(EventTypes.MESSAGE, { key: "combat.result.enemyDefeated" });
-            this.emit(EventTypes.MESSAGE, { key: "combat.result.loot", meta: { gold }, sentiment: SentimentTypes.INFORMATIONAL });
+            this.emit(EventTypes.MESSAGE, {
+                key: "combat.result.enemyDefeated"
+            });
+            
+            this.emit(EventTypes.MESSAGE, {
+                key: "combat.result.loot",
+                meta: { gold },
+                sentiment: SentimentTypes.INFORMATIONAL
+            });
+            
             state.character.gold += enemy.gold;
-            this.emit(EventTypes.MESSAGE, { key: "combat.result.stats", meta: { health: state.character.profession.health, gold: state.character.gold }})
+            
+            this.emit(EventTypes.MESSAGE, {
+                key: "combat.result.stats",
+                meta: {
+                    health: state.character.profession.health,
+                    gold: state.character.gold
+                }
+            });
         }
 
         // Emit updated state.
@@ -103,14 +130,28 @@ class Game extends events.EventEmitter {
     }
 
     rest() {
-        // Make a clone of the current state which we'll emit at the end of the action.
+        // Make a clone of the current state which we'll emit
+        // at the end of the action.
         const state = Object.assign({}, this.state);
 
         state.character.gold -= 50;
         state.character.profession.health += 25;
     
-        this.emit(EventTypes.MESSAGE, { key: "rest.result.change", meta: { heathGain: 25, goldCost: 10 } });
-        this.emit(EventTypes.MESSAGE, { key: "rest.result.stats", meta: { health: character.profession.health, gold: character.gold } });
+        this.emit(EventTypes.MESSAGE, {
+            key: "rest.result.change",
+            meta: {
+                heathGain: 25,
+                goldCost: 10
+            }
+        });
+
+        this.emit(EventTypes.MESSAGE, {
+            key: "rest.result.stats",
+            meta: {
+                health: state.character.profession.health,
+                gold: state.character.gold
+            }
+        });
 
         // Emit updated state.
         this.emit(EventTypes.UPDATE_STATE, state);
@@ -122,7 +163,11 @@ class Game extends events.EventEmitter {
 
     createCharacter() {
         // Emit an event asking for answers for these prompts.
-        this.emit(EventTypes.MESSAGE, { key: "welcome.new", sentiment: SentimentTypes.POSITIVE });
+        this.emit(EventTypes.MESSAGE, {
+            key: "welcome.new",
+            sentiment: SentimentTypes.POSITIVE
+        });
+
         this.emit(EventTypes.PROMPTS, [
             {
                 key: 'name',
@@ -134,6 +179,7 @@ class Game extends events.EventEmitter {
                 choices: ['Warrior', 'Thief', 'Mage']
             }
         ]);
+
         // Listen for the response to come in once.
         this.once(EventTypes.PROMPT_RESPONSE, ([{ name }, { profession }]) => {
             this.state = this.state || {};

@@ -11,19 +11,59 @@ const promptMessageMap = new Map([
 ]);
 
 const messageMap = new Map([
-    ["game.name", "RPG Game"],
-    ["welcome.new", "It looks like you are new here.\nLet's make your character"],
-    ["welcome.returning", ({ name }) => `Welcome back, ${name}` ],
-    ["combat.damage.dealt", ({ amount }) => `You hit the enemy for ${amount} damage.`],
-    ["combat.damage.receive", ({ amount }) => `The enemy hits you for ${amount} damage.`],
-    ["combat.hitpoints", ({ amount }) => `You have ${amount} hitpoints remaining.`],
-    ["death", "You have died. Your final stats were..." ],
-    ["combat.result.enemyDefeated", "You have defeated the enemy"],
-    ["combat.result.loot", ({ gold }) => `You have received ${gold} gold!`],
-    ["combat.result.stats", ({ health, gold }) => `You now have ${health} health and ${gold} gold.`],
-    ["rest.result.change", ({ healthGain, goldCost }) => `You have gained ${healthGain} health for ${goldCost} gold.`],
-    ["rest.result.stats", ({ health, gold }) => `You now have ${health} health and ${gold} gold.`],
-    ["viewCharacter.header", "Character Stats\n---------------"],
+    [
+        "game.name",
+        "RPG Game"  // Make this more exciting...
+    ],
+    [
+        "welcome.new",
+        "It looks like you are new here.\nLet's make your character"
+    ],
+    [
+        "welcome.returning",
+        ({ name }) => `Welcome back, ${name}`
+    ],
+    [
+        "combat.damage.dealt",
+        ({ amount }) => `You hit the enemy for ${amount} damage.`
+    ],
+    [
+        "combat.damage.receive",
+        ({ amount }) => `The enemy hits you for ${amount} damage.`
+    ],
+    [
+        "combat.hitpoints",
+        ({ amount }) => `You have ${amount} hitpoints remaining.`
+    ],
+    [
+        "death",
+        "You have died. Your final stats were..."
+    ],
+    [
+        "combat.result.enemyDefeated",
+        "You have defeated the enemy"
+    ],
+    [
+        "combat.result.loot",
+        ({ gold }) => `You have received ${gold} gold!`
+    ],
+    [
+        "combat.result.stats",
+        ({ health, gold }) => `You now have ${health} health and ${gold} gold.`
+    ],
+    [
+        "rest.result.change",
+        ({ healthGain, goldCost }) =>
+            `You have gained ${healthGain} health for ${goldCost} gold.`
+    ],
+    [
+        "rest.result.stats",
+        ({ health, gold }) => `You now have ${health} health and ${gold} gold.`
+    ],
+    [
+        "viewCharacter.header",
+        "Character Stats\n---------------"
+    ],
 ]);
 
 const sentimentMap = new Map([
